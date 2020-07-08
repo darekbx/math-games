@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MathGames</string>
+    <string name="label_equations">Equations</string>
+    <string name="label_math_square">Math&#178;</string>
+</resources>

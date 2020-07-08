@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_equations"
+        android:title="@string/label_equations"
+        android:icon="@drawable/ic_equations"
+        />
+    <item
+        android:id="@+id/navigation_math_square"
+        android:title="@string/label_equations"
+        android:icon="@drawable/ic_math_square"
+        />
+</menu>

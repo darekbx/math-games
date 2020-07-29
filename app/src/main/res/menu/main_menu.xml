@@ -7,7 +7,7 @@
         />
     <item
         android:id="@+id/navigation_math_square"
-        android:title="@string/label_equations"
+        android:title="@string/label_math_square"
         android:icon="@drawable/ic_math_square"
         />
 </menu>

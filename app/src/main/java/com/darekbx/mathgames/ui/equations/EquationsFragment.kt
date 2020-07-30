@@ -14,7 +14,11 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     companion object {
         val CORRECT_COUNT_KEY = "correct_count_key"
         val ALL_COUNT_KEY = "all_count_key"
+        val LAST_WRONG_KEY = "last_wrong_key"
     }
+
+    private var level = 1
+    private var correctAnswers = 0
 
     private fun TextView.textString() = this.text.toString()
 
@@ -44,18 +48,27 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     }
 
     private fun checkResult() {
-        val resultWrapper = validator.validate(
-            equation_view.textString(),
-            result_view.textString().toInt()
-        )
+        val equation = equation_view.textString()
+        val result = result_view.textString().toInt()
+        val resultWrapper = validator.validate(equation, result)
 
         when (resultWrapper.result) {
-            true -> increaseCorrectCount()
-            else -> Toast.makeText(
-                context,
-                getString(R.string.correct_answer, resultWrapper.equationResult),
-                Toast.LENGTH_LONG
-            ).show()
+            true -> {
+                increaseCorrectCount()
+
+                correctAnswers++
+                if (correctAnswers % 10 == 0) {
+                    level++
+                }
+            }
+            else -> {
+                saveLastWrongAnswer(equation, result, resultWrapper.equationResult)
+                Toast.makeText(
+                    context,
+                    "${equation} != ${result} (correct: ${resultWrapper.equationResult})",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         increaseAllCount()
@@ -66,8 +79,15 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     }
 
     private fun generateNewEquation() {
-        val equation = generator.generate(1)
+        val equation = generator.generate(level)
         equation_view.setText(equation)
+
+        displayLevelInfo()
+    }
+
+    private fun displayLevelInfo() {
+        val levelCompletion = (correctAnswers - (level - 1) * 10) * 10
+        level_view.setText("${getString(R.string.level)} $level ($levelCompletion%)")
     }
 
     private fun refreshStatistics() {
@@ -109,6 +129,14 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     private fun increaseAllCount() {
         val actualCount = getAllAnswersCount()
         preferences?.edit()?.putInt(ALL_COUNT_KEY, actualCount + 1)?.apply()
+    }
+
+    private fun saveLastWrongAnswer(equation: String, result: Int, correctResult: Int) {
+        preferences?.edit()?.putStringSet(LAST_WRONG_KEY, setOf(
+            "Equation: $equation",
+            "Result: $result",
+            "Correct result: $correctResult"
+        ))?.apply()
     }
 
     private val preferences by lazy { context?.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE) }

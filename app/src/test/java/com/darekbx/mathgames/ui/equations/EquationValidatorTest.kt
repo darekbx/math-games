@@ -8,6 +8,7 @@ class EquationValidatorTest {
     fun `Validator test`() {
         val validator = EquationValidator()
 
+        assert(validator.validate("4 * 2 * 4", 32).result)
         assert(validator.validate("1 + 1 + 1", 3).result)
         assert(validator.validate("1 - 1 + 1", 1).result)
         assert(validator.validate("1 + 1 - 1", 1).result)

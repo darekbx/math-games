@@ -8,7 +8,7 @@
     </style>
 
     <style name="KeyboardButton">
-        <item name="android:backgroundTint">#151515</item>
+        <item name="android:backgroundTint">#292929</item>
         <item name="android:layout_margin">0dp</item>
     </style>
 

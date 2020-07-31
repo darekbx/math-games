@@ -22,7 +22,7 @@
         android:textColor="#fff"
         />
 
-    <TextView
+    <Button
         android:id="@+id/result_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,9 +35,11 @@
         android:textStyle="bold"
         android:textSize="24sp"
         android:textColor="#fff"
-        android:background="#222"
         android:layout_marginTop="16dp"
-        android:padding="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:enabled="false"
+        style="@style/KeyboardButton"
         />
     <TextView
         android:id="@+id/statistics_view"

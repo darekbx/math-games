@@ -1,7 +1,12 @@
 package com.darekbx.mathgames.ui.equations
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.telephony.data.ApnSetting
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -93,7 +98,17 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     private fun refreshStatistics() {
         val correctCount = getCorrectAnswersCount()
         val allCount = getAllAnswersCount()
-        statistics_view.setText("$correctCount / $allCount")
+
+        val colorRed = context?.getColor(R.color.red) ?: Color.RED
+        val colorGreen = context?.getColor(R.color.green) ?: Color.GREEN
+        val span = SpannableString("$correctCount / ${allCount - correctCount}").apply {
+            val firstSpace = indexOf(' ')
+            val lastSpace = lastIndexOf(' ')
+            setSpan(ForegroundColorSpan(colorGreen), 0, firstSpace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(ForegroundColorSpan(colorRed), lastSpace, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        statistics_view.setText(span)
     }
 
     private fun onButtonClick(button: View) {

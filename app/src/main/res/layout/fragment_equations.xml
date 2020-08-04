@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="@id/equation_view"
         app:layout_constraintTop_toBottomOf="@id/result_view"
         android:textAlignment="center"
-        tools:text="12 / 80"
+        tools:text="80 / 2"
         android:typeface="normal"
         android:textStyle="bold"
         android:textSize="14sp"

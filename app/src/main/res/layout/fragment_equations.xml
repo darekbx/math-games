@@ -69,6 +69,19 @@
         android:textSize="12sp"
         android:textColor="#fff"
         />
+    <TextView
+        android:id="@+id/last_wrong"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        tools:text="10 * 11 + 12 != 22"
+        android:typeface="normal"
+        android:padding="4dp"
+        android:textSize="12sp"
+        android:textColor="#ccc"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/num_pad"

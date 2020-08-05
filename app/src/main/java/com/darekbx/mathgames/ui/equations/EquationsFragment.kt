@@ -3,13 +3,11 @@ package com.darekbx.mathgames.ui.equations
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.telephony.data.ApnSetting
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.darekbx.mathgames.R
 import kotlinx.android.synthetic.main.fragment_equations.*
@@ -68,11 +66,7 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
             }
             else -> {
                 saveLastWrongAnswer(equation, result, resultWrapper.equationResult)
-                Toast.makeText(
-                    context,
-                    "${equation} != ${result} (correct: ${resultWrapper.equationResult})",
-                    Toast.LENGTH_LONG
-                ).show()
+                last_wrong.setText(preferences?.getStringSet(LAST_WRONG_KEY, emptySet())?.joinToString(", "))
             }
         }
 

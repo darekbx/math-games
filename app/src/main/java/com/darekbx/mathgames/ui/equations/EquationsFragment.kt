@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
@@ -24,6 +25,7 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     private var correctAnswers = 0
 
     private fun TextView.textString() = this.text.toString()
+    private fun TextView.isEmpty() = TextUtils.isEmpty(this.text.toString())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +53,9 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
     }
 
     private fun checkResult() {
+        if (result_view.isEmpty()) {
+            return
+        }
         val equation = equation_view.textString()
         val result = result_view.textString().toInt()
         val resultWrapper = validator.validate(equation, result)

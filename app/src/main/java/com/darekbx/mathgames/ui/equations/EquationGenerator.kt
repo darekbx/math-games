@@ -9,22 +9,36 @@ class EquationGenerator {
     private val modificators = listOf('+', '-', '*')
 
     fun generate(level: Int): String {
-        val maximum = initialValue + level
+        var maximum = initialValue + level
+        var minimum = 5 + level
+        val additionBoost = Random.nextDouble() <= 0.33
 
-        val minimumFirst = level - 1
-        val minimumSecond = level + 1
-        val minimumThird = level
+        if (additionBoost) {
+            maximum *= (level + 2)
+        }
+
+        val minimumFirst = minimum - 1
+        val minimumSecond = minimum + 1
+        val minimumThird = minimum
+
+        var firstModificator = randomModificator()
+        var secondModificator = randomModificator()
+
+        if (additionBoost) {
+            firstModificator = randomAddSubModificator()
+            secondModificator = randomAddSubModificator()
+        }
 
         val firstNumber = randomInt(minimumFirst, maximum)
         val secondNumber = randomInt(minimumSecond, maximum)
         val thirdNumber = randomInt(minimumThird, maximum)
-        val firstModificator = randomModificator()
-        val secondModificator = randomModificator()
 
         return "$firstNumber $firstModificator $secondNumber $secondModificator $thirdNumber"
     }
 
     private fun randomModificator() = modificators[Random.nextInt(modificators.size)]
+
+    private fun randomAddSubModificator() = modificators[Random.nextInt(modificators.size - 1)]
 
     private fun randomInt(minimum: Int, maximum: Int) = Random.nextInt(max(minimum, 1), minimum + maximum)
 }

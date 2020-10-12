@@ -153,6 +153,8 @@ class EquationsFragment : Fragment(R.layout.fragment_equations) {
         ))?.apply()
     }
 
+    private fun readLastWrongAnswer() = preferences?.getStringSet(LAST_WRONG_KEY, null)
+
     private val preferences by lazy { context?.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE) }
     private val generator by lazy { EquationGenerator() }
     private val validator by lazy { EquationValidator() }
